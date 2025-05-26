@@ -1,0 +1,55 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}TechStock{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigasyon -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">TechStock</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <!-- Sol Menü -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Anasayfa</a>
+        </li>
+      </ul>
+
+      <!-- Sağ Menü -->
+      <div class="d-flex align-items-center">
+        {% if user.is_authenticated %}
+          <span class="text-white me-2">👤 {{ user.username }}</span>
+          <a href="{% url 'logout' %}" class="btn btn-danger btn-sm">Çıkış Yap</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-success btn-sm">Giriş Yap</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!--  İçerik -->
+<div class="container mt-4">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  {% block content %}
+  {% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Anasayfa{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+  <h1 class="display-4">Hoş Geldiniz!</h1>
+  {% if user.is_authenticated %}
+    <p class="lead mt-3">Merhaba <strong>{{ user.username }}</strong>, sistemimize giriş yaptınız.</p>
+    <p>Yukarıdaki menüyü kullanarak ürün ekleyebilir veya ürünleri listeleyebilirsiniz.</p>
+  {% else %}
+    <p class="lead mt-3">Devam etmek için lütfen giriş yapın veya kayıt olun.</p>
+    <a href="{% url 'login' %}" class="btn btn-success btn-lg mt-3">Giriş Yap</a>
+    <a href="{% url 'signup' %}" class="btn btn-outline-primary btn-lg mt-3 ms-2">Kayıt Ol</a>
+  {% endif %}
+</div>
+{% endblock %}

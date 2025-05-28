@@ -7,11 +7,12 @@
         <table class="table table-bordered table-striped table-hover align-middle text-center">
             <thead class="table-primary">
                 <tr>
-                    <th scope="col">Ürün Adı</th>
-                    <th scope="col">Adet</th>
-                    <th scope="col">Depo Adı</th>
-                    <th scope="col">Açıklama</th>
-                    <th scope="col">Eklenme Tarihi</th>
+                    <th>Ürün Adı</th>
+                    <th>Adet</th>
+                    <th>Depo Adı</th>
+                    <th>Açıklama</th>
+                    <th>Eklenme Tarihi</th>
+                    <th>İşlem</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,10 +23,16 @@
                         <td>{{ urun.depo.ad }}</td>
                         <td>{{ urun.description|default:"-" }}</td>
                         <td>{{ urun.added_on|date:"Y-m-d H:i" }}</td>
+                        <td>
+                            <a href="{% url 'urun_sil' urun.id %}" class="btn btn-sm btn-danger"
+                               onclick="return confirm('Bu ürünü silmek istediğinizden emin misiniz?')">
+                                🗑️
+                            </a>
+                        </td>
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="5" class="text-center">Hiç ürün yok.</td>
+                        <td colspan="6">Hiç ürün yok.</td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Ürün Listesi</h1>
+    <a href="{% url 'product_add' %}">Yeni Ürün Ekle</a>
+    <ul>
+        {% for product in products %}
+            <li>
+                {{ product.name }} | {{ product.description }} | {{ product.price }} ₺
+                [<a href="{% url 'product_edit' product.pk %}">Düzenle</a>]
+                [<a href="{% url 'product_delete' product.pk %}">Sil</a>]
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+

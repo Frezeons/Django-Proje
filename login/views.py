@@ -13,7 +13,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('product_list')  
+            return redirect('home')  
         else:
             error = "Invalid credentials"
             return render(request, 'login.html', {'error': error})
@@ -33,4 +33,4 @@ def signup_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')

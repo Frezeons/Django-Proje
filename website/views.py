@@ -1,41 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product
-from .forms import ProductForm
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from .models import Product
 
 @login_required
-def product_list(request):
-    products = Product.objects.all()
-    return render(request, 'product_list.html', {'products': products})
-
-@login_required
-def product_add(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('product_list')
-    else:
-        form = ProductForm()
-    return render(request, 'product_form.html', {'form': form})
-
-@login_required
-def product_edit(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    if request.method == 'POST':
-        form = ProductForm(request.POST, instance=product)
-        if form.is_valid():
-            form.save()
-            return redirect('product_list')
-    else:
-        form = ProductForm(instance=product)
-    return render(request, 'product_form.html', {'form': form})
-
-@login_required
-def product_delete(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    if request.method == 'POST':
-        product.delete()
-        return redirect('product_list')
-    return render(request, 'product_confirm_delete.html', {'product': product})
-
+def urun_listesi(request):
+    urunler = Product.objects.select_related('depo').all()
+    return render(request, 'urun_listesi.html', {'urunler': urunler})

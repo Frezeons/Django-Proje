@@ -23,6 +23,13 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'home' %}">Anasayfa</a>
         </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'urun_listesi' %}">Ürün Listesi</a>
+        </li>
+      {% else %}
+    
+      {% endif %}
       </ul>
 
       <!-- Sağ Menü -->

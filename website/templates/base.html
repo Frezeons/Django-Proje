@@ -1,24 +1,101 @@
-<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>{% block title %}TechStock{% endblock %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    /* Genel arka plan */
+    body {
+      background-color: #EBEBD3;
+      color: white;
+    }
+    /* Navbar renkleri */
+    .navbar {
+      background-color: #083D77 !important;
+    }
+    /* Navbar linkleri beyaz */
+    .navbar .nav-link,
+    .navbar .navbar-brand,
+    .navbar .text-white {
+      color: white !important;
+    }
+    /* Navbar link hover */
+    .navbar .nav-link:hover,
+    .navbar .navbar-brand:hover {
+      color: #EE964B !important;
+    }
+    /* Butonlar */
+    .btn-success {
+      background-color: #083D77;
+      border-color: #083D77;
+      color: white;
+    }
+    .btn-success:hover {
+      background-color: #EE964B;
+      border-color: #EE964B;
+      color: #083D77;
+    }
+    .btn-danger {
+  background-color: #F95738;
+  border-color: #F95738;
+  color: white;
+}
+.btn-danger:hover {
+  background-color: #083D77;
+  border-color: #083D77;
+  color: white;
+}
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      color: white;
+    }
+    .btn-secondary:hover {
+      background-color: #5a6268;
+      border-color: #545b62;
+      color: white;
+    }
+    /* Alert kutuları */
+    .alert-info {
+      background-color: #083D77;
+      color: white;
+      border-color: #083D77;
+    }
+    .alert-success {
+      background-color: #EE964B;
+      color: #083D77;
+      border-color: #EE964B;
+    }
+    .alert-danger {
+      background-color: #b32d2e;
+      color: white;
+      border-color: #b32d2e;
+    }
+    /* Table başlık */
+    thead.table-primary th {
+      background-color: #083D77 !important;
+      color: white;
+    }
+    /* Linklerin genel hover rengi */
+    a:hover {
+      color: #b32d2e !important;
+    }
+  </style>
 </head>
 <body>
 
 <!-- Navigasyon -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home' %}">TechStock</a>
+    <a class="navbar-brand" href="{% url 'home' %}">🛒 TechStock</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarContent">
-      <!-- Sol Menü -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="{% url 'home' %}">Anasayfa</a>
@@ -27,12 +104,14 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'urun_listesi' %}">Ürün Listesi</a>
         </li>
-      {% else %}
-    
-      {% endif %}
+        {% endif %}
+        {% if user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'urun_ekle' %}">Ürün Ekle</a>
+        </li>
+        {% endif %}
       </ul>
 
-      <!-- Sağ Menü -->
       <div class="d-flex align-items-center">
         {% if user.is_authenticated %}
           <span class="text-white me-2">👤 {{ user.username }}</span>
@@ -45,14 +124,20 @@
   </div>
 </nav>
 
-<!--  İçerik -->
-<div class="container mt-4">
-  {% if messages %}
+<!-- Mesajlar -->
+{% if messages %}
+  <div class="container mt-3">
     {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+      </div>
     {% endfor %}
-  {% endif %}
+  </div>
+{% endif %}
 
+<!-- Ana içerik -->
+<div class="container mt-4 text-dark">
   {% block content %}
   {% endblock %}
 </div>

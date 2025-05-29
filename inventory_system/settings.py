@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-dev-only'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-proje-gjam.onrender.com']
 
 LOGIN_URL = '/login/' 
 

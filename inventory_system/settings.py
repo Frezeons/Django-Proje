@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-k=_$(7b6^#v8lfbo7@&q9@43i99o^tqgl9%b1a9mer@c&lqhn_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-proje-gjam.onrender.com']
 
 LOGIN_URL = '/login/' 
 
